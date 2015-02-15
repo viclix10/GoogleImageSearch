@@ -34,7 +34,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true" 
-        android:numColumns="3"/>
+        android:numColumns="2"
+        android:scrollingCache="true" />
     
 
 </RelativeLayout>

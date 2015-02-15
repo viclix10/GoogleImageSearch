@@ -7,5 +7,6 @@
     <string name="Search_Promp">Search Image String</string>
     <string name="Search_Button">Search</string>
     <string name="title_activity_full_image">FullImage</string>
+    <string name="title_activity_setting">SettingActivity</string>
 
 </resources>

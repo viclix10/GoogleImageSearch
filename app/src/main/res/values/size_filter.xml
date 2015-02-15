@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="image_sizes_array">
+    <item>xsmall</item>
+    <item>small</item>
+    <item>large</item>
+    <item>xxlarge</item>
+  </string-array>
+
+</resources>
