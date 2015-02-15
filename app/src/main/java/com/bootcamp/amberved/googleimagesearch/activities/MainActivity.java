@@ -71,8 +71,6 @@ public class MainActivity extends ActionBarActivity {
                 googleImageSearch();
             }
         });
-
-
     }
 
     private void setupListViewListener() {
