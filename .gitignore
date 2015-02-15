@@ -5,7 +5,6 @@
 .DS_Store
 /build
 
-app
 ### Android template
 # Built application files
 *.apk
