@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.FullImage"
+            android:name=".activities.FullImageActivity"
             android:label="@string/title_activity_full_image"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data

@@ -42,13 +42,12 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<GoogleImageResults> googleImageResults;
     private GoogleImageResultsAdapater aGoogleImageResults;
     
-    private String typeFilter  = null;
-    private String sizeFilter  = null;
-    private String colorFilter = null;
-    private String siteFilter  = null;
-    private int offset=0;
-    private boolean isFilterSet = false;
-    
+    private String typeFilter  = "Any";
+    private String sizeFilter  = "Any";
+    private String colorFilter = "Any";
+    private String siteFilter  = "Any";
+    private int pageCount=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
             public void onLoadMore(int page, int totalItemsCount) {
                 Log.i("GoogleImageSearch", "onScrollListerner "+totalItemsCount);
                 Toast.makeText(getApplicationContext(),"onScrollListerner"+totalItemsCount,Toast.LENGTH_SHORT).show();
-                offset = totalItemsCount;
+                pageCount = totalItemsCount;
                 googleImageSearch();
             }
         });
@@ -81,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
 
                 GoogleImageResults img = googleImageResults.get(position);
 
-                Intent i = new Intent(MainActivity.this, FullImage.class);
+                Intent i = new Intent(MainActivity.this, FullImageActivity.class);
                 i.putExtra("img", img.getUrl());
                 startActivity(i);
             }
@@ -124,7 +123,7 @@ public class MainActivity extends ActionBarActivity {
             return;
         }
         
-        offset = 0; //Reset
+        pageCount = 0; //Reset
         googleImageSearch();
     }
     
@@ -133,24 +132,24 @@ public class MainActivity extends ActionBarActivity {
         String query = etQuery.getText().toString();
         String searchUrl = BASE_GOOGLE_IMAGE_SEARCH_URL+"&q="+query;
         
-        if (typeFilter != null) {
+        if (typeFilter != "Any") {
             searchUrl += "&imgtype=" + typeFilter;
         }
 
-        if (sizeFilter!= null) {
+        if (sizeFilter != "Any") {
             searchUrl += "&imgz=" + sizeFilter;
         }
 
-        if (colorFilter!= null) {
+        if (colorFilter != "Any") {
             searchUrl += "&imgcolor=" + colorFilter;
         }
 
-        if (siteFilter!= null) {
-            searchUrl += "&as_sitesearch=" + siteFilter;
+        if ((siteFilter != "Any") && (!(siteFilter.trim().isEmpty()))) {
+            searchUrl += "&as_sitesearch=" + siteFilter.trim();
         }
 
-        if (offset > 0) {
-            searchUrl += "&start=" + offset;
+        if (pageCount > 0) {
+            searchUrl += "&start=" + pageCount;
         }
         
         Log.i("GoogleImageSearch", searchUrl);
@@ -163,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
                 JSONArray searchResultsJson = null;
                 try {
                     searchResultsJson = response.getJSONObject("responseData").getJSONArray("results");
-                    if (offset == 0) {
+                    if (pageCount == 0) {
                         googleImageResults.clear();
                     }
                     aGoogleImageResults.addAll(GoogleImageResults.fromJSONArray(searchResultsJson));
@@ -190,10 +189,10 @@ public class MainActivity extends ActionBarActivity {
     private void onClickActionSettings() {
         
         Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
-        intent.putExtra("type", typeFilter == null ? "photo" : typeFilter);
-        intent.putExtra("size", sizeFilter == null ? "small": sizeFilter);
-        intent.putExtra("color", colorFilter == null ? "black" : colorFilter);
-        intent.putExtra("site", siteFilter == null ? "nationalgeographic.com" : siteFilter);
+        intent.putExtra("type", typeFilter == "Any" ? "photo" : typeFilter);
+        intent.putExtra("size", sizeFilter == "Any" ? "small": sizeFilter);
+        intent.putExtra("color", colorFilter == "Any" ? "black" : colorFilter);
+        intent.putExtra("site", siteFilter == "Any" ? "nationalgeographic.com" : siteFilter);
         startActivityForResult(intent, FETCH_SETTING);
     }
 

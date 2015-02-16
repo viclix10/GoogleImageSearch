@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="color_filters_array">
+    <item>"Any"</item>
     <item>black</item>
     <item>red</item>
     <item>blue</item>
     <item>green</item>
     <item>white</item>
   </string-array>
-
 </resources>

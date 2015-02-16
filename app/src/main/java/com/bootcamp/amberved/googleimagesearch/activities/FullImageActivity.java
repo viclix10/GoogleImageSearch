@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class FullImage extends ActionBarActivity {
+public class FullImageActivity extends ActionBarActivity {
 
     ImageView ivFullImageView;
     
