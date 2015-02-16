@@ -24,5 +24,5 @@ Advanced optional user stories:
 
 Walkthrough of user stories:
 ![Video Walkthrough](GoogleImageSearch.gif)
-
+![Video Walkthrough](GoogleImageSearch_2.gif)
 
