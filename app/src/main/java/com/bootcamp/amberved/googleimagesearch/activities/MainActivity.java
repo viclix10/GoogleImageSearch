@@ -189,9 +189,9 @@ public class MainActivity extends ActionBarActivity {
     private void onClickActionSettings() {
         
         Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
-        intent.putExtra("type", typeFilter == "Any" ? "photo" : typeFilter);
-        intent.putExtra("size", sizeFilter == "Any" ? "small": sizeFilter);
-        intent.putExtra("color", colorFilter == "Any" ? "black" : colorFilter);
+        intent.putExtra("type", typeFilter == "Any" ? "Any" : typeFilter);
+        intent.putExtra("size", sizeFilter == "Any" ? "Any": sizeFilter);
+        intent.putExtra("color", colorFilter == "Any" ? "Any" : colorFilter);
         intent.putExtra("site", siteFilter == "Any" ? "nationalgeographic.com" : siteFilter);
         startActivityForResult(intent, FETCH_SETTING);
     }
