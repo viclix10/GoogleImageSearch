@@ -42,10 +42,10 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<GoogleImageResults> googleImageResults;
     private GoogleImageResultsAdapater aGoogleImageResults;
     
-    private String typeFilter = null;
-    private String sizeFilter= null;
-    private String colorFilter= null;
-    private String siteFilter= null;
+    private String typeFilter  = null;
+    private String sizeFilter  = null;
+    private String colorFilter = null;
+    private String siteFilter  = null;
     private int offset=0;
     private boolean isFilterSet = false;
     
@@ -68,8 +68,8 @@ public class MainActivity extends ActionBarActivity {
         gvResults.setOnScrollListener( new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                Log.i("GoogleImageSearch", "onLoadMore");
-                Toast.makeText(getApplicationContext(),"onScrollListerner",Toast.LENGTH_SHORT).show();
+                Log.i("GoogleImageSearch", "onScrollListerner "+totalItemsCount);
+                Toast.makeText(getApplicationContext(),"onScrollListerner"+totalItemsCount,Toast.LENGTH_SHORT).show();
                 offset = totalItemsCount;
                 googleImageSearch();
             }
@@ -123,6 +123,8 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "No active network to get images..", Toast.LENGTH_SHORT).show();
             return;
         }
+        
+        offset = 0; //Reset
         googleImageSearch();
     }
     
@@ -147,14 +149,12 @@ public class MainActivity extends ActionBarActivity {
             searchUrl += "&as_sitesearch=" + siteFilter;
         }
 
-        Log.i("GoogleImageSearch", searchUrl);
-
-        if (offset <= 0) {
+        if (offset > 0) {
             searchUrl += "&start=" + offset;
-        } else {
-            offset += 8;
         }
         
+        Log.i("GoogleImageSearch", searchUrl);
+
         AsyncHttpClient client = new AsyncHttpClient();
         
         client.get(searchUrl, null, new JsonHttpResponseHandler() {
@@ -170,7 +170,7 @@ public class MainActivity extends ActionBarActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.i("GoogleImageSearch", googleImageResults.toString());
+                //Log.i("GoogleImageSearch", googleImageResults.toString());
             }
             
             @Override
