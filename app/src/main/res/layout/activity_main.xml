@@ -35,7 +35,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true" 
         android:numColumns="2"
-        android:scrollingCache="true" />
+        android:gravity="center" />
     
 
 </RelativeLayout>

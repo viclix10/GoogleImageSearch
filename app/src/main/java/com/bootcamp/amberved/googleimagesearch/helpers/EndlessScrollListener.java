@@ -4,7 +4,7 @@ import android.widget.AbsListView;
 
 public abstract class EndlessScrollListener implements AbsListView.OnScrollListener {
 
-    private int visibleThreshold = 10;
+    private int visibleThreshold = 3;
     private int currentPage = 0;
     private int previousTotalItemCount = 0;
     private boolean loading = true;

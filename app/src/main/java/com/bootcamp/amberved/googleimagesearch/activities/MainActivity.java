@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
     private String sizeFilter= null;
     private String colorFilter= null;
     private String siteFilter= null;
-    private int offset;
+    private int offset=0;
     private boolean isFilterSet = false;
     
     @Override
@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         
         setupView();
         
-        setupListViewListener();
+        //setupListViewListener();
         
         //Create DataSource
         googleImageResults = new ArrayList<GoogleImageResults>();
@@ -68,12 +68,13 @@ public class MainActivity extends ActionBarActivity {
         gvResults.setOnScrollListener( new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
+                Log.i("GoogleImageSearch", "onLoadMore");
+                Toast.makeText(getApplicationContext(),"onScrollListerner",Toast.LENGTH_SHORT).show();
+                offset = totalItemsCount;
                 googleImageSearch();
             }
         });
-    }
-
-    private void setupListViewListener() {
+        
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -85,6 +86,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
+        
     }
 
     @Override
@@ -145,10 +147,12 @@ public class MainActivity extends ActionBarActivity {
             searchUrl += "&as_sitesearch=" + siteFilter;
         }
 
-        Log.i("Info", searchUrl);
+        Log.i("GoogleImageSearch", searchUrl);
 
-        if (offset != -1) {
+        if (offset <= 0) {
             searchUrl += "&start=" + offset;
+        } else {
+            offset += 8;
         }
         
         AsyncHttpClient client = new AsyncHttpClient();
@@ -159,12 +163,14 @@ public class MainActivity extends ActionBarActivity {
                 JSONArray searchResultsJson = null;
                 try {
                     searchResultsJson = response.getJSONObject("responseData").getJSONArray("results");
-                    googleImageResults.clear();
+                    if (offset == 0) {
+                        googleImageResults.clear();
+                    }
                     aGoogleImageResults.addAll(GoogleImageResults.fromJSONArray(searchResultsJson));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.i("Info", googleImageResults.toString());
+                Log.i("GoogleImageSearch", googleImageResults.toString());
             }
             
             @Override
@@ -200,7 +206,6 @@ public class MainActivity extends ActionBarActivity {
             colorFilter = data.getExtras().getString("color");
             siteFilter = data.getExtras().getString("site");
             boolean isFilterSet = true;
-            Toast.makeText(this,typeFilter+"#"+sizeFilter+"#"+colorFilter+"#"+siteFilter,Toast.LENGTH_SHORT).show();
         }
     }
     
@@ -223,7 +228,7 @@ public class MainActivity extends ActionBarActivity {
         boolean networkStatus = (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting());
         
         if (!networkStatus) {
-            Log.i("INFO:", "No active network to get images..");
+            Log.i("GoogleImageSearch", "No active network to get images..");
         }
         return networkStatus;
     }

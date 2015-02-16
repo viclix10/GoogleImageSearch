@@ -16,7 +16,7 @@ public class NetworkStatus {
         boolean networkStatus = (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting());
 
         if (!networkStatus) {
-            Log.i("INFO:", "No active network to get images..");
+            Log.i("GoogleImageSearch", "No active network to get images..");
         }
         return networkStatus;
     }
