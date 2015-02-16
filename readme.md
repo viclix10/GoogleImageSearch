@@ -23,6 +23,11 @@ Advanced optional user stories:
 * [x] Advanced: User can share an image to their friends or email it to themselves
 
 Walkthrough of user stories:
-![Video Walkthrough](GoogleImageSearch.gif)
+
+* Endless Scroll & Filters
 ![Video Walkthrough](GoogleImageSearch_2.gif)
+
+Other Users Stories
+![Video Walkthrough](GoogleImageSearch.gif)
+
 
